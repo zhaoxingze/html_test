@@ -105,7 +105,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-front,.card-back{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;overflow:hidden}
 
 /* -- Card Front -- */
-.card-front{background:linear-gradient(160deg,#fff 0%,#fce4ec 50%,#f8bbd0 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 18px;position:relative}
+.card-front{background:linear-gradient(160deg,#fff 0%,#fce4ec 50%,#f8bbd0 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative}
 .card-front::before{content:'';position:absolute;inset:8px;border:1.5px dashed rgba(233,30,99,.2);border-radius:12px;pointer-events:none}
 .card-front .card-float{position:absolute;font-size:14px;opacity:0;pointer-events:none}
 .card-front .card-float.cf1{top:15%;left:10%;animation:cfFloat 5s ease-in-out infinite 0s}
@@ -126,7 +126,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-front .flip-hint{margin-top:12px;font-size:11px;color:#c2185b;opacity:.5;letter-spacing:1px;animation:pulse 2s infinite}
 
 /* -- Card Back -- */
-.card-back{background:linear-gradient(160deg,#fff0f5,#ffe4e1 40%,#fff 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;position:relative}
+.card-back{background:linear-gradient(160deg,#fff0f5,#ffe4e1 40%,#fff 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:14px 14px 10px;position:relative;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .card-back::before{content:'';position:absolute;inset:8px;border:1.5px dashed rgba(233,30,99,.15);border-radius:12px;pointer-events:none}
 .card-back .back-float{position:absolute;font-size:12px;opacity:0;pointer-events:none}
 .card-back .back-float.bf1{top:6%;left:8%;animation:cfFloat 5s ease-in-out infinite 0s}
@@ -134,18 +134,18 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-back .back-float.bf3{bottom:8%;left:10%;animation:cfFloat 5.5s ease-in-out infinite 1.2s}
 .card-back .back-float.bf4{bottom:6%;right:8%;animation:cfFloat 4s ease-in-out infinite 1.8s}
 
-.card-back .to-name{font-size:14px;color:#c2185b;letter-spacing:3px;margin-bottom:4px;opacity:.7}
-.card-back .big-heart-back{font-size:42px;animation:cardHeartbeat 1.5s ease-in-out infinite;margin-bottom:4px;filter:drop-shadow(0 4px 12px rgba(233,30,99,.3))}
-.card-back .main-msg{font-size:24px;color:#e91e63;font-family:'STKaiti','KaiTi','Georgia',serif;text-align:center;line-height:1.5;font-weight:bold;text-shadow:0 2px 10px rgba(233,30,99,.25);margin-bottom:4px}
-.card-back .divider-back{width:50px;height:2px;background:linear-gradient(90deg,transparent,#e91e63,transparent);margin:6px 0}
-.card-back .love-list{list-style:none;padding:0;margin:0 0 8px;text-align:center}
-.card-back .love-list li{font-size:12px;color:#880e4f;line-height:1.8;opacity:.8;letter-spacing:1px}
+.card-back .to-name{font-size:14px;color:#c2185b;letter-spacing:3px;margin-bottom:2px;opacity:.7}
+.card-back .big-heart-back{font-size:38px;animation:cardHeartbeat 1.5s ease-in-out infinite;margin-bottom:2px;filter:drop-shadow(0 4px 12px rgba(233,30,99,.3))}
+.card-back .main-msg{font-size:22px;color:#e91e63;font-family:'STKaiti','KaiTi','Georgia',serif;text-align:center;line-height:1.4;font-weight:bold;text-shadow:0 2px 10px rgba(233,30,99,.25);margin-bottom:2px}
+.card-back .divider-back{width:50px;height:2px;background:linear-gradient(90deg,transparent,#e91e63,transparent);margin:4px 0}
+.card-back .love-list{list-style:none;padding:0;margin:0 0 6px;text-align:center}
+.card-back .love-list li{font-size:12px;color:#880e4f;line-height:1.7;opacity:.8;letter-spacing:1px}
 .card-back .love-list li span{margin-right:4px}
-.card-back .sub-msg{font-size:14px;color:#ad1457;text-align:center;line-height:1.5;margin-bottom:12px;opacity:.85}
-.card-back .heart-btn{padding:14px 36px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:16px;cursor:pointer;letter-spacing:2px;box-shadow:0 4px 20px rgba(233,30,99,.4);transition:all .3s;font-family:inherit;position:relative;overflow:hidden}
+.card-back .sub-msg{font-size:13px;color:#ad1457;text-align:center;line-height:1.4;margin-bottom:8px;opacity:.85}
+.card-back .heart-btn{padding:10px 30px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:15px;cursor:pointer;letter-spacing:2px;box-shadow:0 4px 20px rgba(233,30,99,.4);transition:all .3s;font-family:inherit;position:relative;overflow:hidden}
 .card-back .heart-btn:active{transform:scale(.95)}
 .card-back .heart-btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:ripple .6s ease-out}
-.card-back .back-btn{margin-top:12px;padding:8px 24px;background:transparent;color:#c2185b;border:1.5px solid #f8bbd0;border-radius:50px;font-size:13px;cursor:pointer;letter-spacing:2px;font-family:inherit;transition:all .3s;opacity:.7}
+.card-back .back-btn{margin-top:8px;padding:6px 20px;background:transparent;color:#c2185b;border:1.5px solid #f8bbd0;border-radius:50px;font-size:12px;cursor:pointer;letter-spacing:2px;font-family:inherit;transition:all .3s;opacity:.7}
 .card-back .back-btn:active{transform:scale(.95);opacity:1}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
 
