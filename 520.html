@@ -99,7 +99,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 /* ========== Card Stage ========== */
 #card-stage{position:fixed;top:0;left:0;right:0;bottom:0;z-index:16;display:none;background:linear-gradient(180deg,#fce4ec 0%,#fff0f5 50%,#fce4ec 100%)}
 .card-perspective{position:absolute;top:0;left:0;right:0;bottom:0;perspective:1200px;display:flex;align-items:center;justify-content:center;padding:14px}
-.card-flipper{width:290px;max-width:88vw;height:480px;max-height:calc(100% - 28px);transform-style:preserve-3d;transition:transform 1s cubic-bezier(.4,0,.2,1);position:relative}
+.card-flipper{width:290px;max-width:88vw;height:480px;max-height:calc(100% - 28px);transform-style:preserve-3d;transition:transform 1s cubic-bezier(.4,0,.2,1);position:relative;cursor:pointer}
 .card-flipper.flipped{transform:rotateY(180deg)}
 .card-front,.card-back{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;overflow:hidden}
 
@@ -267,7 +267,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 <!-- ===== Card Stage ===== -->
 <div id="card-stage">
   <div class="card-perspective">
-  <div class="card-flipper" id="card">
+  <div class="card-flipper" id="card" onclick="flipCard()">
     <div class="card-front">
       <span class="card-float cf1">🌸</span>
       <span class="card-float cf2">✨</span>
@@ -690,10 +690,12 @@ function enterCard() {
       cs.style.transition = 'opacity .6s ease';
       cs.style.opacity = '1';
     });
-    setTimeout(() => {
-      document.getElementById('card').classList.add('flipped');
-    }, 1000);
   }, 600);
+}
+
+function flipCard() {
+  if (navigator.vibrate) navigator.vibrate(40);
+  document.getElementById('card').classList.toggle('flipped');
 }
 
 function backToPhotos() {
