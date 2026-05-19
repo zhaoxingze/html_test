@@ -267,7 +267,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 <!-- ===== Card Stage ===== -->
 <div id="card-stage">
   <div class="card-perspective">
-  <div class="card-flipper" id="card" onclick="flipCard()">
+  <div class="card-flipper" id="card" onclick="flipCard()" data-user-flipped="no">
     <div class="card-front">
       <span class="card-float cf1">🌸</span>
       <span class="card-float cf2">✨</span>
@@ -675,38 +675,50 @@ function showPhotoStage() {
   setTimeout(() => startOrbitAutoPlay(), 600);
 }
 
-let hasFlipped = false;
-
 function enterCard() {
   if (navigator.vibrate) navigator.vibrate(50);
   clearInterval(orbitTimer);
-  // Always ensure card starts un-flipped
-  document.getElementById('card').classList.remove('flipped');
-  const ps = document.getElementById('photo-stage');
+  var card = document.getElementById('card');
+  // Force reset: remove flipped, mark as not yet flipped this visit
+  card.classList.remove('flipped');
+  card.dataset.userFlipped = 'no';
+
+  var ps = document.getElementById('photo-stage');
   ps.style.transition = 'opacity .6s ease';
   ps.style.opacity = '0';
-  setTimeout(() => {
+  setTimeout(function() {
     ps.style.display = 'none';
-    const cs = document.getElementById('card-stage');
+    var cs = document.getElementById('card-stage');
     cs.style.display = 'block';
     cs.style.opacity = '0';
-    requestAnimationFrame(() => {
-      cs.style.transition = 'opacity .6s ease';
-      cs.style.opacity = '1';
-    });
-    // After first manual flip, auto-flip on subsequent entries
-    if (hasFlipped) {
-      setTimeout(() => {
-        document.getElementById('card').classList.add('flipped');
-      }, 800);
-    }
+    cs.offsetHeight; // force reflow
+    cs.style.transition = 'opacity .6s ease';
+    cs.style.opacity = '1';
+    autoFlipIfNeeded();
   }, 600);
 }
 
 function flipCard() {
   if (navigator.vibrate) navigator.vibrate(40);
-  hasFlipped = true;
-  document.getElementById('card').classList.toggle('flipped');
+  var card = document.getElementById('card');
+  var isFlipped = card.classList.contains('flipped');
+  if (isFlipped) {
+    // Currently showing back → flip to front
+    card.classList.remove('flipped');
+  } else {
+    // Currently showing front → flip to back, mark as user-flipped
+    card.classList.add('flipped');
+    card.dataset.userFlipped = 'yes';
+  }
+}
+
+function autoFlipIfNeeded() {
+  var card = document.getElementById('card');
+  if (card.dataset.userFlipped === 'yes') {
+    setTimeout(function() {
+      card.classList.add('flipped');
+    }, 800);
+  }
 }
 
 function backToPhotos() {
