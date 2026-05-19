@@ -104,7 +104,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-front,.card-back{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;overflow:hidden}
 
 /* -- Card Front -- */
-.card-front{background:linear-gradient(160deg,#fff 0%,#fce4ec 50%,#f8bbd0 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative}
+.card-front{background:linear-gradient(160deg,#fff 0%,#fce4ec 50%,#f8bbd0 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px}
 .card-front::before{content:'';position:absolute;inset:8px;border:1.5px dashed rgba(233,30,99,.2);border-radius:12px;pointer-events:none}
 .card-front .card-float{position:absolute;font-size:14px;opacity:0;pointer-events:none}
 .card-front .card-float.cf1{top:15%;left:10%;animation:cfFloat 5s ease-in-out infinite 0s}
@@ -125,7 +125,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-front .flip-hint{margin-top:12px;font-size:11px;color:#c2185b;opacity:.5;letter-spacing:1px;animation:pulse 2s infinite}
 
 /* -- Card Back -- */
-.card-back{background:linear-gradient(160deg,#fff0f5,#ffe4e1 40%,#fff 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;position:relative;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.card-back{background:linear-gradient(160deg,#fff0f5,#ffe4e1 40%,#fff 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .card-back::before{content:'';position:absolute;inset:8px;border:1.5px dashed rgba(233,30,99,.15);border-radius:12px;pointer-events:none}
 .card-back .back-float{position:absolute;font-size:12px;opacity:0;pointer-events:none}
 .card-back .back-float.bf1{top:6%;left:8%;animation:cfFloat 5s ease-in-out infinite 0s}
