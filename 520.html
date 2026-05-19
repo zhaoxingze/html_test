@@ -680,6 +680,8 @@ let hasFlipped = false;
 function enterCard() {
   if (navigator.vibrate) navigator.vibrate(50);
   clearInterval(orbitTimer);
+  // Always ensure card starts un-flipped
+  document.getElementById('card').classList.remove('flipped');
   const ps = document.getElementById('photo-stage');
   ps.style.transition = 'opacity .6s ease';
   ps.style.opacity = '0';
