@@ -675,6 +675,8 @@ function showPhotoStage() {
   setTimeout(() => startOrbitAutoPlay(), 600);
 }
 
+let hasFlipped = false;
+
 function enterCard() {
   if (navigator.vibrate) navigator.vibrate(50);
   clearInterval(orbitTimer);
@@ -690,11 +692,18 @@ function enterCard() {
       cs.style.transition = 'opacity .6s ease';
       cs.style.opacity = '1';
     });
+    // After first manual flip, auto-flip on subsequent entries
+    if (hasFlipped) {
+      setTimeout(() => {
+        document.getElementById('card').classList.add('flipped');
+      }, 800);
+    }
   }, 600);
 }
 
 function flipCard() {
   if (navigator.vibrate) navigator.vibrate(40);
+  hasFlipped = true;
   document.getElementById('card').classList.toggle('flipped');
 }
 
