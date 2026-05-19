@@ -10,23 +10,75 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Georgia','STKaiti'
 body{background:linear-gradient(135deg,#fce4ec 0%,#f8bbd0 30%,#f48fb1 60%,#f06292 100%);display:flex;align-items:center;justify-content:center}
 canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
-/* === Envelope Stage === */
-#envelope-stage{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:20px;animation:fadeIn 1.5s ease}
+/* ========== Envelope Stage ========== */
+#envelope-stage{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:0;animation:fadeIn 1.8s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.envelope{width:260px;height:180px;position:relative;cursor:pointer;perspective:800px;filter:drop-shadow(0 8px 25px rgba(0,0,0,.15))}
-.envelope-body{width:100%;height:100%;background:linear-gradient(145deg,#fff5f5,#ffe0e0);border-radius:8px;border:2px solid #f8a4b8;position:relative;overflow:hidden}
-.envelope-body::after{content:'';position:absolute;inset:6px;border:1px dashed #f48fb1;border-radius:4px;opacity:.4}
-.envelope-flap{position:absolute;top:0;left:0;width:100%;height:50%;background:linear-gradient(180deg,#f8a4b8,#f48fb1);clip-path:polygon(0 0,50% 100%,100% 0);transform-origin:top center;transition:transform .8s cubic-bezier(.4,0,.2,1);z-index:2}
-.envelope-flap.open{transform:rotateX(180deg)}
-.envelope-seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:radial-gradient(circle,#e91e63,#c2185b);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 2px 10px rgba(233,30,99,.5);transition:opacity .4s}
-.envelope-seal span{color:#fff;font-size:20px;font-weight:bold;text-shadow:0 1px 3px rgba(0,0,0,.3)}
-.envelope-seal.hidden{opacity:0;pointer-events:none}
-.envelope-text{color:#c2185b;font-size:18px;letter-spacing:3px;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.05)}}
-.hint{color:#ad1457;font-size:13px;opacity:.7;margin-top:5px;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* === Card Stage === */
+.env-top-deco{text-align:center;margin-bottom:12px}
+.env-top-deco .sparkle-row{display:flex;justify-content:center;gap:10px;margin-bottom:6px}
+.env-top-deco .sparkle{font-size:14px;animation:sparkleAnim 2s ease-in-out infinite}
+.env-top-deco .sparkle:nth-child(2){animation-delay:.3s}
+.env-top-deco .sparkle:nth-child(3){animation-delay:.6s}
+@keyframes sparkleAnim{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.env-title{font-size:22px;color:#880e4f;letter-spacing:6px;text-shadow:0 2px 8px rgba(136,14,79,.15);margin-bottom:2px}
+.env-subtitle{font-size:13px;color:#c2185b;opacity:.7;letter-spacing:4px}
+
+.envelope-wrap{position:relative;width:280px;height:200px;cursor:pointer;perspective:800px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.18));margin:16px 0}
+.envelope{width:100%;height:100%;position:relative}
+.envelope-body{width:100%;height:100%;background:linear-gradient(145deg,#fff8f8,#ffe4e1);border-radius:10px;border:2px solid #f8a4b8;position:relative;overflow:hidden}
+.envelope-body::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(244,143,177,.06) 8px,rgba(244,143,177,.06) 16px)}
+.envelope-body::after{content:'';position:absolute;inset:8px;border:1.5px dashed #f48fb1;border-radius:6px;opacity:.35}
+.envelope-heart-deco{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:28px;opacity:.15;z-index:1}
+.envelope-stamp{position:absolute;top:12px;right:12px;width:44px;height:52px;background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:1.5px solid #f48fb1;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1}
+.envelope-stamp .stamp-emoji{font-size:18px}
+.envelope-stamp .stamp-text{font-size:7px;color:#c2185b;letter-spacing:1px}
+
+.envelope-flap{position:absolute;top:0;left:0;width:100%;height:52%;background:linear-gradient(180deg,#f8a4b8,#f48fb1);clip-path:polygon(0 0,50% 100%,100% 0);transform-origin:top center;transition:transform .9s cubic-bezier(.4,0,.2,1);z-index:2}
+.envelope-flap.open{transform:rotateX(180deg)}
+.envelope-seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:radial-gradient(circle at 35% 35%,#f06292,#e91e63,#c2185b);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 3px 15px rgba(233,30,99,.5),inset 0 2px 4px rgba(255,255,255,.3);transition:opacity .5s}
+.envelope-seal::before{content:'';position:absolute;inset:-4px;border:2px dashed rgba(255,255,255,.3);border-radius:50%;animation:sealGlow 2s ease-in-out infinite}
+@keyframes sealGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.envelope-seal span{color:#fff;font-size:20px;font-weight:bold;text-shadow:0 1px 4px rgba(0,0,0,.3);z-index:1}
+.envelope-seal.hidden{opacity:0;pointer-events:none}
+
+.envelope-text{color:#c2185b;font-size:18px;letter-spacing:3px;animation:pulse 2s infinite;margin-top:4px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.05)}}
+.hint{color:#ad1457;font-size:12px;opacity:.6;margin-top:6px;animation:float 3s ease-in-out infinite;display:flex;align-items:center;gap:4px}
+.hint .hint-arrow{display:inline-block;animation:bounce 1.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+/* Floating hearts around envelope */
+.float-heart{position:absolute;font-size:16px;opacity:0;pointer-events:none;z-index:5}
+.float-heart.h1{top:-20px;left:20%;animation:fh1 4s ease-in-out infinite 0s}
+.float-heart.h2{top:30%;right:-25px;animation:fh1 4.5s ease-in-out infinite .8s}
+.float-heart.h3{bottom:-15px;left:10%;animation:fh1 5s ease-in-out infinite 1.5s}
+.float-heart.h4{top:10%;left:-20px;animation:fh1 4.2s ease-in-out infinite 2s}
+.float-heart.h5{bottom:20%;right:-20px;animation:fh1 3.8s ease-in-out infinite .5s}
+@keyframes fh1{0%{opacity:0;transform:translateY(10px) scale(.6)}20%{opacity:.7}80%{opacity:.7}100%{opacity:0;transform:translateY(-20px) scale(1.1)}}
+
+.env-poem{margin-top:14px;text-align:center;color:#880e4f;font-size:12px;line-height:2;opacity:.55;letter-spacing:1px}
+
+/* ========== Photo Gallery Stage ========== */
+#photo-stage{position:fixed;top:0;left:0;width:100%;height:100%;z-index:15;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;background:linear-gradient(180deg,#fce4ec 0%,#fff0f5 50%,#fce4ec 100%)}
+.photo-inner{display:flex;flex-direction:column;align-items:center;padding:30px 20px 50px;min-height:100%}
+.photo-stage-title{font-size:20px;color:#e91e63;text-align:center;margin-bottom:6px;opacity:0;transform:translateY(20px);letter-spacing:3px}
+.photo-stage-sub{font-size:13px;color:#ad1457;text-align:center;margin-bottom:24px;opacity:0;transform:translateY(20px);letter-spacing:2px}
+.photo-card{width:280px;max-width:85vw;margin-bottom:28px;background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(233,30,99,.12);overflow:hidden;opacity:0;transform:translateY(40px) scale(.92);border:2px solid #f8bbd0}
+.photo-card.revealed{opacity:1;transform:translateY(0) scale(1);transition:opacity .8s ease,transform .8s cubic-bezier(.25,.46,.45,.94)}
+.photo-card img{width:100%;height:200px;object-fit:cover;display:block}
+.photo-caption{padding:12px 16px;text-align:center;font-size:13px;color:#880e4f;line-height:1.8;letter-spacing:1px}
+.photo-caption .cap-heart{display:inline-block;animation:heartbeat 1.5s ease-in-out infinite;margin:0 3px}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+
+.photo-scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:16;color:#c2185b;font-size:12px;opacity:0;animation:fadeInOut 3s ease infinite;pointer-events:none;background:rgba(255,255,255,.8);padding:6px 16px;border-radius:20px;backdrop-filter:blur(5px)}
+@keyframes fadeInOut{0%,100%{opacity:0;transform:translate(-50%,10px)}20%,80%{opacity:.8;transform:translate(-50%,0)}}
+
+#enter-card-btn{margin-top:10px;margin-bottom:30px;padding:14px 40px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:16px;cursor:pointer;letter-spacing:3px;box-shadow:0 4px 20px rgba(233,30,99,.35);font-family:inherit;opacity:0;transform:translateY(20px);transition:all .3s}
+#enter-card-btn.revealed{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease}
+#enter-card-btn:active{transform:scale(.95)!important}
+
+/* ========== Card Stage ========== */
 #card-stage{position:relative;z-index:10;width:320px;max-width:90vw;perspective:1200px;display:none}
 .card-flipper{width:100%;min-height:480px;position:relative;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.4,0,.2,1)}
 .card-flipper.flipped{transform:rotateY(180deg)}
@@ -34,8 +86,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-front{background:linear-gradient(160deg,#fff 0%,#fce4ec 100%);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px}
 .card-front h1{font-size:28px;color:#e91e63;font-family:'STKaiti','KaiTi','Georgia',serif;text-align:center;line-height:1.6;text-shadow:0 2px 8px rgba(233,30,99,.2)}
 .card-front .divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,#e91e63,transparent);margin:15px 0}
-.card-front .illustration{font-size:64px;margin:10px 0;animation:heartbeat 1.5s ease-in-out infinite}
-@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.card-front .illustration{font-size:64px;margin:10px 0}
 .card-front p{color:#880e4f;font-size:14px;text-align:center;line-height:1.8;opacity:.8}
 
 .card-back{background:linear-gradient(160deg,#fff0f5,#ffe4e1,#fff);border:2px solid #f8bbd0;box-shadow:0 10px 40px rgba(0,0,0,.12);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px}
@@ -47,17 +98,17 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .card-back .heart-btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:ripple .6s ease-out}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
 
-/* === Fireworks === */
+/* ========== Fireworks ========== */
 #fireworks-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:50;pointer-events:none}
 
-/* === Love Popup === */
+/* ========== Love Popup ========== */
 #love-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:30px 40px;border-radius:20px;box-shadow:0 10px 50px rgba(0,0,0,.15);text-align:center;transition:transform .5s cubic-bezier(.68,-.55,.27,1.55);pointer-events:none}
 #love-popup.show{transform:translate(-50%,-50%) scale(1);pointer-events:auto}
 #love-popup .popup-heart{font-size:48px;animation:heartbeat 1s infinite}
 #love-popup .popup-text{font-size:20px;color:#e91e63;margin-top:10px;font-family:'STKaiti','KaiTi','Georgia',serif}
 #love-popup .popup-sub{font-size:13px;color:#ad1457;margin-top:6px;opacity:.7}
 
-/* === Music Toggle === */
+/* ========== Music Toggle ========== */
 #music-btn{position:fixed;top:16px;right:16px;z-index:200;width:36px;height:36px;background:rgba(255,255,255,.8);border:1px solid #f8bbd0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;backdrop-filter:blur(5px);box-shadow:0 2px 8px rgba(0,0,0,.1)}
 #music-btn.playing{animation:musicSpin 3s linear infinite}
 @keyframes musicSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
@@ -68,18 +119,74 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 
 <canvas id="particles"></canvas>
 
-<!-- Envelope Stage -->
+<!-- ===== Envelope Stage ===== -->
 <div id="envelope-stage">
-  <div class="envelope" id="envelope" onclick="openEnvelope()">
-    <div class="envelope-flap" id="flap"></div>
-    <div class="envelope-seal" id="seal"><span>520</span></div>
-    <div class="envelope-body"></div>
+  <div class="env-top-deco">
+    <div class="sparkle-row">
+      <span class="sparkle">✨</span><span class="sparkle">💖</span><span class="sparkle">✨</span>
+    </div>
+    <div class="env-title">致 我的宝贝</div>
+    <div class="env-subtitle">一封来自心底的信</div>
   </div>
+
+  <div class="envelope-wrap">
+    <div class="float-heart h1">💕</div>
+    <div class="float-heart h2">💗</div>
+    <div class="float-heart h3">💕</div>
+    <div class="float-heart h4">💗</div>
+    <div class="float-heart h5">💕</div>
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+      <div class="envelope-flap" id="flap"></div>
+      <div class="envelope-seal" id="seal"><span>520</span></div>
+      <div class="envelope-body">
+        <div class="envelope-stamp">
+          <span class="stamp-emoji">🌹</span>
+          <span class="stamp-text">LOVE</span>
+        </div>
+        <div class="envelope-heart-deco">💌</div>
+      </div>
+    </div>
+  </div>
+
   <div class="envelope-text">一封给你的信</div>
-  <div class="hint">轻触信封开启 ~</div>
+  <div class="hint"><span class="hint-arrow">👇</span> 轻触信封开启</div>
+
+  <div class="env-poem">
+    春水初生 春林初盛<br>
+    春风十里 不如你<br>
+    —— 520 快乐
+  </div>
 </div>
 
-<!-- Card Stage -->
+<!-- ===== Photo Gallery Stage ===== -->
+<div id="photo-stage">
+  <div class="photo-inner">
+    <div class="photo-stage-title" id="photoTitle">我们的小美好</div>
+    <div class="photo-stage-sub" id="photoSub">每一张 都是甜蜜的记忆 💫</div>
+
+    <div class="photo-card" id="pc0">
+      <img src="photos/3dd22b1c36efd67a1e90898531e62d76.jpg" alt="photo1" loading="lazy">
+      <div class="photo-caption">时光温柔 <span class="cap-heart">🌸</span> 因为有你</div>
+    </div>
+    <div class="photo-card" id="pc1">
+      <img src="photos/402245736c879a3b4340ce25b0458363.jpg" alt="photo2" loading="lazy">
+      <div class="photo-caption">每一个瞬间 <span class="cap-heart">💕</span> 都值得珍藏</div>
+    </div>
+    <div class="photo-card" id="pc2">
+      <img src="photos/88613ea2c43a254bda83e6445a91b702.jpg" alt="photo3" loading="lazy">
+      <div class="photo-caption">你的笑容 <span class="cap-heart">☀️</span> 是最美的风景</div>
+    </div>
+    <div class="photo-card" id="pc3">
+      <img src="photos/e1627c73645c989ee806f5f06187b649.jpg" alt="photo4" loading="lazy">
+      <div class="photo-caption">往后余生 <span class="cap-heart">🌹</span> 风雪是你 平淡也是你</div>
+    </div>
+
+    <button id="enter-card-btn" onclick="enterCard()">💌 打开贺卡</button>
+  </div>
+  <div class="photo-scroll-hint" id="scrollHint">↓ 继续往下看 ↓</div>
+</div>
+
+<!-- ===== Card Stage ===== -->
 <div id="card-stage">
   <div class="card-flipper" id="card">
     <div class="card-front">
@@ -192,17 +299,84 @@ let opened = false;
 function openEnvelope() {
   if (opened) return;
   opened = true;
-  // Vibrate
   if (navigator.vibrate) navigator.vibrate(80);
+
   document.getElementById('flap').classList.add('open');
   document.getElementById('seal').classList.add('hidden');
+
   setTimeout(() => {
-    document.getElementById('envelope-stage').style.transition = 'opacity .5s, transform .5s';
-    document.getElementById('envelope-stage').style.opacity = '0';
-    document.getElementById('envelope-stage').style.transform = 'scale(0.8) translateY(-30px)';
-  }, 600);
+    const es = document.getElementById('envelope-stage');
+    es.style.transition = 'opacity .6s, transform .6s';
+    es.style.opacity = '0';
+    es.style.transform = 'scale(0.85) translateY(-30px)';
+  }, 700);
+
   setTimeout(() => {
     document.getElementById('envelope-stage').style.display = 'none';
+    showPhotoStage();
+  }, 1300);
+}
+
+// ========== Photo Gallery Logic ==========
+function showPhotoStage() {
+  const ps = document.getElementById('photo-stage');
+  ps.style.display = 'block';
+
+  showMusicBtn();
+  tryAutoPlayMusic();
+
+  // Reveal title and subtitle
+  setTimeout(() => {
+    const title = document.getElementById('photoTitle');
+    title.style.transition = 'opacity .8s ease, transform .8s ease';
+    title.style.opacity = '1';
+    title.style.transform = 'translateY(0)';
+  }, 200);
+  setTimeout(() => {
+    const sub = document.getElementById('photoSub');
+    sub.style.transition = 'opacity .8s ease, transform .8s ease';
+    sub.style.opacity = '1';
+    sub.style.transform = 'translateY(0)';
+  }, 500);
+
+  // Reveal photos one by one
+  const delays = [900, 1800, 2700, 3600];
+  delays.forEach((d, i) => {
+    setTimeout(() => {
+      const card = document.getElementById('pc' + i);
+      card.classList.add('revealed');
+      // Vibrate lightly on each photo
+      if (navigator.vibrate) navigator.vibrate(30);
+      // Scroll into view smoothly
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }, d);
+  });
+
+  // Show scroll hint
+  setTimeout(() => {
+    document.getElementById('scrollHint').style.display = 'block';
+  }, 2000);
+
+  // Reveal enter button
+  setTimeout(() => {
+    const btn = document.getElementById('enter-card-btn');
+    btn.classList.add('revealed');
+    btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Hide scroll hint
+    document.getElementById('scrollHint').style.display = 'none';
+  }, 4500);
+}
+
+function enterCard() {
+  if (navigator.vibrate) navigator.vibrate(50);
+  const ps = document.getElementById('photo-stage');
+  ps.style.transition = 'opacity .6s ease';
+  ps.style.opacity = '0';
+
+  setTimeout(() => {
+    ps.style.display = 'none';
     const cs = document.getElementById('card-stage');
     cs.style.display = 'block';
     cs.style.opacity = '0';
@@ -212,13 +386,10 @@ function openEnvelope() {
       cs.style.opacity = '1';
       cs.style.transform = 'translateY(0)';
     });
-    // Auto flip after 1.2s
     setTimeout(() => {
       document.getElementById('card').classList.add('flipped');
     }, 1200);
-    showMusicBtn();
-    tryAutoPlayMusic();
-  }, 1100);
+  }, 600);
 }
 
 // ========== Fireworks / Heart Particles ==========
@@ -310,37 +481,32 @@ function animateFireworks() {
 }
 
 // ========== Love Button ==========
-let loveCount = 0;
 function showLove(btn) {
   if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
-  // Ripple
   const ripple = document.createElement('span');
   ripple.className = 'ripple';
   const rect = btn.getBoundingClientRect();
-  ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+  const sz = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = sz + 'px';
   ripple.style.left = '50%';
   ripple.style.top = '50%';
-  ripple.style.marginLeft = -Math.max(rect.width, rect.height) / 2 + 'px';
-  ripple.style.marginTop = -Math.max(rect.width, rect.height) / 2 + 'px';
+  ripple.style.marginLeft = -sz / 2 + 'px';
+  ripple.style.marginTop = -sz / 2 + 'px';
   btn.appendChild(ripple);
   setTimeout(() => ripple.remove(), 600);
 
-  loveCount++;
-  // Spawn fireworks at button position
   const bx = rect.left + rect.width / 2;
   const by = rect.top + rect.height / 2;
   spawnFireworks(bx, by);
-  // Extra bursts
   setTimeout(() => spawnFireworks(bx - 60, by - 80), 200);
   setTimeout(() => spawnFireworks(bx + 60, by - 60), 400);
 
-  // Show popup
   const popup = document.getElementById('love-popup');
   popup.classList.add('show');
   setTimeout(() => popup.classList.remove('show'), 2500);
 }
 
-// ========== Background Music (Web Audio API) ==========
+// ========== Background Music ==========
 let audioCtx = null;
 let musicPlaying = false;
 let musicInterval = null;
@@ -348,7 +514,6 @@ let musicInterval = null;
 function createMusic() {
   if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  // A gentle lullaby-like melody using pentatonic scale
   const notes = [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33,
                  523.25, 392, 440, 523.25, 587.33, 523.25, 440, 392,
                  523.25, 659.25, 783.99, 880, 783.99, 659.25, 523.25, 440,
@@ -394,23 +559,16 @@ function showMusicBtn() {
 }
 
 function tryAutoPlayMusic() {
-  // Try autoplay (may be blocked by browser)
   musicPlaying = true;
   createMusic();
   const btn = document.getElementById('music-btn');
   btn.classList.add('playing');
   btn.textContent = '🎶';
-  // If autoplay blocked, user can tap to start
   if (audioCtx && audioCtx.state === 'suspended') {
     musicPlaying = false;
     clearInterval(musicInterval);
     btn.classList.remove('playing');
     btn.textContent = '🎵';
-    btn.addEventListener('click', function handler() {
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-      if (!musicPlaying) toggleMusic();
-      btn.removeEventListener('click', handler);
-    }, { once: true });
   }
 }
 </script>
