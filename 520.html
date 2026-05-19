@@ -69,26 +69,29 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 
 /* ========== Photo Carousel Stage ========== */
 #photo-stage{position:fixed;top:0;left:0;width:100%;height:100%;z-index:15;display:none;background:linear-gradient(180deg,#fce4ec 0%,#fff0f5 50%,#fce4ec 100%);overflow:hidden}
-.photo-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:20px}
+.photo-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:20px;gap:10px}
 
-.photo-stage-title{font-size:20px;color:#e91e63;text-align:center;margin-bottom:4px;opacity:0;transform:translateY(20px);letter-spacing:3px}
+.photo-stage-title{font-size:20px;color:#e91e63;text-align:center;margin-bottom:2px;opacity:0;transform:translateY(20px);letter-spacing:3px}
 .photo-stage-title.revealed{opacity:1;transform:translateY(0);transition:opacity .8s ease,transform .8s ease}
-.photo-stage-sub{font-size:13px;color:#ad1457;text-align:center;margin-bottom:20px;opacity:0;transform:translateY(20px);letter-spacing:2px}
+.photo-stage-sub{font-size:13px;color:#ad1457;text-align:center;margin-bottom:10px;opacity:0;transform:translateY(20px);letter-spacing:2px}
 .photo-stage-sub.revealed{opacity:1;transform:translateY(0);transition:opacity .8s ease,transform .8s ease}
 
-.carousel-wrap{width:100%;max-width:400px;position:relative;overflow:hidden;border-radius:20px;margin-bottom:16px}
-.carousel-track{display:flex;will-change:transform}
-.carousel-track.animate{transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-.carousel-slide{min-width:100%;padding:0 12px;display:flex;justify-content:center}
-.carousel-slide img{width:100%;max-width:340px;height:220px;object-fit:cover;border-radius:16px;box-shadow:0 8px 30px rgba(233,30,99,.15);border:3px solid #fff}
-.slide-caption{text-align:center;margin-top:8px;font-size:13px;color:#880e4f;letter-spacing:1px;line-height:1.6}
+/* 3D Orbital Carousel */
+.orbit-scene{width:100%;max-width:420px;height:320px;perspective:1000px;position:relative;margin:0 auto}
+.orbit-ring{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateY(0deg);transition:none}
+.orbit-ring.smooth{transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
 
-.carousel-dots{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
-.carousel-dots .dot{width:8px;height:8px;border-radius:50%;background:#f8bbd0;transition:all .3s}
-.carousel-dots .dot.active{background:#e91e63;width:22px;border-radius:4px}
+.orbit-card{position:absolute;top:50%;left:50%;width:240px;height:280px;margin-left:-120px;margin-top:-140px;border-radius:18px;overflow:hidden;backface-visibility:hidden;box-shadow:0 10px 35px rgba(233,30,99,.18);border:3px solid rgba(255,255,255,.9);transition:opacity .5s,box-shadow .5s}
+.orbit-card img{width:100%;height:200px;object-fit:cover;display:block}
+.orbit-card .card-caption{padding:10px 12px;text-align:center;font-size:13px;color:#880e4f;line-height:1.6;letter-spacing:1px;background:linear-gradient(180deg,#fff0f5,#fff);height:80px;display:flex;align-items:center;justify-content:center}
+.orbit-card.front{box-shadow:0 15px 50px rgba(233,30,99,.25);border-color:#fff}
+.orbit-card.front img{height:210px}
 
+.orbit-dots{display:flex;justify-content:center;gap:10px;margin-top:6px}
+.orbit-dots .dot{width:8px;height:8px;border-radius:50%;background:#f8bbd0;transition:all .3s}
+.orbit-dots .dot.active{background:#e91e63;width:24px;border-radius:4px}
 
-#enter-card-btn{margin-top:6px;padding:14px 40px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:16px;cursor:pointer;letter-spacing:3px;box-shadow:0 4px 20px rgba(233,30,99,.35);font-family:inherit;opacity:0;transform:translateY(20px);transition:all .3s}
+#enter-card-btn{margin-top:10px;padding:14px 40px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:16px;cursor:pointer;letter-spacing:3px;box-shadow:0 4px 20px rgba(233,30,99,.35);font-family:inherit;opacity:0;transform:translateY(20px);transition:all .3s}
 #enter-card-btn.revealed{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease}
 #enter-card-btn:active{transform:scale(.95)!important}
 
@@ -194,43 +197,28 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
     <div class="photo-stage-title" id="photoTitle">我们的小美好</div>
     <div class="photo-stage-sub" id="photoSub">每一张 都是甜蜜的记忆 💫</div>
 
-    <div class="carousel-wrap" id="carouselWrap">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">
-          <div>
-            <img src="photos/3dd22b1c36efd67a1e90898531e62d76.jpg" alt="photo1">
-            <div class="slide-caption">时光温柔 🌸 因为有你</div>
-          </div>
+    <div class="orbit-scene" id="orbitScene">
+      <div class="orbit-ring" id="orbitRing">
+        <div class="orbit-card" data-idx="0">
+          <img src="photos/3dd22b1c36efd67a1e90898531e62d76.jpg" alt="photo1">
+          <div class="card-caption">时光温柔 🌸 因为有你</div>
         </div>
-        <div class="carousel-slide">
-          <div>
-            <img src="photos/402245736c879a3b4340ce25b0458363.jpg" alt="photo2">
-            <div class="slide-caption">每一个瞬间 💕 都值得珍藏</div>
-          </div>
+        <div class="orbit-card" data-idx="1">
+          <img src="photos/402245736c879a3b4340ce25b0458363.jpg" alt="photo2">
+          <div class="card-caption">每一个瞬间 💕 都值得珍藏</div>
         </div>
-        <div class="carousel-slide">
-          <div>
-            <img src="photos/88613ea2c43a254bda83e6445a91b702.jpg" alt="photo3">
-            <div class="slide-caption">你的笑容 ☀️ 是最美的风景</div>
-          </div>
+        <div class="orbit-card" data-idx="2">
+          <img src="photos/88613ea2c43a254bda83e6445a91b702.jpg" alt="photo3">
+          <div class="card-caption">你的笑容 ☀️ 是最美的风景</div>
         </div>
-        <div class="carousel-slide">
-          <div>
-            <img src="photos/e1627c73645c989ee806f5f06187b649.jpg" alt="photo4">
-            <div class="slide-caption">往后余生 🌹 风雪是你 平淡也是你</div>
-          </div>
-        </div>
-        <!-- Clone of first slide for seamless loop -->
-        <div class="carousel-slide">
-          <div>
-            <img src="photos/3dd22b1c36efd67a1e90898531e62d76.jpg" alt="photo1-clone">
-            <div class="slide-caption">时光温柔 🌸 因为有你</div>
-          </div>
+        <div class="orbit-card" data-idx="3">
+          <img src="photos/e1627c73645c989ee806f5f06187b649.jpg" alt="photo4">
+          <div class="card-caption">往后余生 🌹 风雪是你 平淡也是你</div>
         </div>
       </div>
     </div>
 
-    <div class="carousel-dots" id="carouselDots">
+    <div class="orbit-dots" id="orbitDots">
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
@@ -522,58 +510,92 @@ function openEnvelope() {
   }, 1300);
 }
 
-// ========== Carousel Logic (Seamless Infinite Loop) ==========
-const REAL_SLIDES = 4;
-let currentSlide = 0;
-let autoPlayTimer = null;
-let isTransitioning = false;
+// ========== 3D Orbital Carousel ==========
+const ORBIT_SLIDES = 4;
+const ANGLE_PER_SLIDE = 360 / ORBIT_SLIDES;
+let orbitAngle = 0;
+let orbitIdx = 0;
+let orbitTimer = null;
+let orbitAnimating = false;
 
-function updateDots(idx) {
-  const real = idx % REAL_SLIDES;
-  document.querySelectorAll('#carouselDots .dot').forEach((d, i) => d.classList.toggle('active', i === real));
+function layoutOrbit() {
+  const scene = document.getElementById('orbitScene');
+  const cards = scene.querySelectorAll('.orbit-card');
+  const sceneW = scene.clientWidth;
+  // Radius based on scene width
+  const radius = Math.max(sceneW * 0.42, 130);
+
+  cards.forEach((card, i) => {
+    const angle = ANGLE_PER_SLIDE * i;
+    card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+  });
 }
 
-function goToSlide(idx, animate) {
-  const track = document.getElementById('carouselTrack');
-  if (animate) {
-    track.classList.add('animate');
+function rotateOrbit(direction) {
+  if (orbitAnimating) return;
+  orbitAnimating = true;
+
+  if (direction === 1) {
+    orbitIdx = (orbitIdx + 1) % ORBIT_SLIDES;
   } else {
-    track.classList.remove('animate');
+    orbitIdx = (orbitIdx - 1 + ORBIT_SLIDES) % ORBIT_SLIDES;
   }
-  track.style.transform = `translateX(-${idx * 100}%)`;
-  updateDots(idx);
+  orbitAngle = -orbitIdx * ANGLE_PER_SLIDE;
+
+  const ring = document.getElementById('orbitRing');
+  ring.classList.add('smooth');
+  ring.style.transform = `rotateY(${orbitAngle}deg)`;
+
+  // Update dots
+  document.querySelectorAll('#orbitDots .dot').forEach((d, i) => {
+    d.classList.toggle('active', i === orbitIdx);
+  });
+
+  // Update card front/back styling
+  updateOrbitCards();
+
+  setTimeout(() => {
+    ring.classList.remove('smooth');
+    orbitAnimating = false;
+  }, 850);
 }
 
-function nextSlide() {
-  if (isTransitioning) return;
-  currentSlide++;
-  isTransitioning = true;
-  goToSlide(currentSlide, true);
+function updateOrbitCards() {
+  const scene = document.getElementById('orbitScene');
+  const cards = scene.querySelectorAll('.orbit-card');
+  cards.forEach((card, i) => {
+    if (i === orbitIdx) {
+      card.classList.add('front');
+      card.style.opacity = '1';
+      card.style.zIndex = '10';
+    } else {
+      card.classList.remove('front');
+      card.style.opacity = '0.55';
+      card.style.zIndex = '1';
+    }
+  });
+}
 
-  // When reaching the clone (index 4), snap back to 0 after transition
-  if (currentSlide >= REAL_SLIDES) {
-    setTimeout(() => {
-      currentSlide = 0;
-      goToSlide(currentSlide, false);
-      isTransitioning = false;
-    }, 650);
-  } else {
-    setTimeout(() => { isTransitioning = false; }, 650);
+function startOrbitAutoPlay() {
+  layoutOrbit();
+  updateOrbitCards();
+  orbitTimer = setInterval(() => rotateOrbit(1), 3000);
+}
+
+// Touch swipe
+let orbitTouchX = 0;
+const orbitScene = document.getElementById('orbitScene');
+orbitScene.addEventListener('touchstart', e => { orbitTouchX = e.changedTouches[0].screenX; }, { passive: true });
+orbitScene.addEventListener('touchend', e => {
+  const diff = orbitTouchX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 30) {
+    rotateOrbit(diff > 0 ? 1 : -1);
+    clearInterval(orbitTimer);
+    orbitTimer = setInterval(() => rotateOrbit(1), 3000);
   }
-}
-
-function startAutoPlay() {
-  autoPlayTimer = setInterval(nextSlide, 3000);
-}
-
-// Touch swipe (any direction advances the loop)
-let touchStartX = 0;
-const carouselWrap = document.getElementById('carouselWrap');
-carouselWrap.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-carouselWrap.addEventListener('touchend', e => {
-  const diff = touchStartX - e.changedTouches[0].screenX;
-  if (Math.abs(diff) > 40) nextSlide();
 }, { passive: true });
+
+window.addEventListener('resize', layoutOrbit);
 
 // ========== Photo Stage Logic ==========
 function showPhotoStage() {
@@ -585,12 +607,12 @@ function showPhotoStage() {
   setTimeout(() => document.getElementById('photoTitle').classList.add('revealed'), 200);
   setTimeout(() => document.getElementById('photoSub').classList.add('revealed'), 500);
   setTimeout(() => document.getElementById('enter-card-btn').classList.add('revealed'), 3000);
-  setTimeout(() => startAutoPlay(), 800);
+  setTimeout(() => startOrbitAutoPlay(), 600);
 }
 
 function enterCard() {
   if (navigator.vibrate) navigator.vibrate(50);
-  clearInterval(autoPlayTimer);
+  clearInterval(orbitTimer);
   const ps = document.getElementById('photo-stage');
   ps.style.transition = 'opacity .6s ease';
   ps.style.opacity = '0';
