@@ -77,15 +77,15 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .photo-stage-sub.revealed{opacity:1;transform:translateY(0);transition:opacity .8s ease,transform .8s ease}
 
 /* 3D Orbital Carousel */
-.orbit-scene{width:100%;max-width:420px;height:320px;perspective:1000px;position:relative;margin:0 auto}
+.orbit-scene{width:100%;max-width:420px;height:460px;perspective:900px;position:relative;margin:0 auto}
 .orbit-ring{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateY(0deg);transition:none}
 .orbit-ring.smooth{transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
 
-.orbit-card{position:absolute;top:50%;left:50%;width:240px;height:280px;margin-left:-120px;margin-top:-140px;border-radius:18px;overflow:hidden;backface-visibility:hidden;box-shadow:0 10px 35px rgba(233,30,99,.18);border:3px solid rgba(255,255,255,.9);transition:opacity .5s,box-shadow .5s}
-.orbit-card img{width:100%;height:200px;object-fit:cover;display:block}
-.orbit-card .card-caption{padding:10px 12px;text-align:center;font-size:13px;color:#880e4f;line-height:1.6;letter-spacing:1px;background:linear-gradient(180deg,#fff0f5,#fff);height:80px;display:flex;align-items:center;justify-content:center}
-.orbit-card.front{box-shadow:0 15px 50px rgba(233,30,99,.25);border-color:#fff}
-.orbit-card.front img{height:210px}
+.orbit-card{position:absolute;top:50%;left:50%;width:260px;height:400px;margin-left:-130px;margin-top:-200px;border-radius:18px;overflow:hidden;backface-visibility:hidden;box-shadow:0 10px 35px rgba(233,30,99,.18);border:3px solid rgba(255,255,255,.85);transition:opacity .5s,box-shadow .5s;background:#fff}
+.orbit-card img{width:100%;height:310px;object-fit:cover;display:block}
+.orbit-card .card-caption{padding:10px 14px;text-align:center;font-size:13px;color:#880e4f;line-height:1.6;letter-spacing:1px;background:linear-gradient(180deg,#fff0f5,#fff);height:90px;display:flex;align-items:center;justify-content:center}
+.orbit-card.front{box-shadow:0 15px 50px rgba(233,30,99,.25);border-color:#fff;z-index:10!important}
+.orbit-card.front img{height:320px}
 
 .orbit-dots{display:flex;justify-content:center;gap:10px;margin-top:6px}
 .orbit-dots .dot{width:8px;height:8px;border-radius:50%;background:#f8bbd0;transition:all .3s}
@@ -522,8 +522,7 @@ function layoutOrbit() {
   const scene = document.getElementById('orbitScene');
   const cards = scene.querySelectorAll('.orbit-card');
   const sceneW = scene.clientWidth;
-  // Radius based on scene width
-  const radius = Math.max(sceneW * 0.42, 130);
+  const radius = Math.max(sceneW * 0.52, 170);
 
   cards.forEach((card, i) => {
     const angle = ANGLE_PER_SLIDE * i;
