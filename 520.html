@@ -14,34 +14,13 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 #envelope-stage{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;width:100%;height:100%;animation:fadeIn 1.8s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
-.env-container{display:flex;align-items:center;justify-content:center;gap:0;position:relative}
+.env-container{display:flex;align-items:center;justify-content:center;gap:0;position:relative;width:100%;max-width:420px}
 
-/* Left & Right decorative columns */
-.env-side{display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 10px}
-.env-side .side-item{font-size:20px;opacity:0;animation:sideReveal .6s ease forwards}
-.env-side .side-line{width:2px;height:30px;background:linear-gradient(180deg,transparent,rgba(233,30,99,.3),transparent);opacity:0;animation:sideReveal .6s ease forwards}
-@keyframes sideReveal{to{opacity:1}}
+/* Heart particle canvases */
+.heart-canvas-wrap{width:70px;height:180px;flex-shrink:0;position:relative}
+.heart-canvas-wrap canvas{width:100%;height:100%}
 
-.env-side.left .side-item:nth-child(1){animation-delay:.3s}
-.env-side.left .side-item:nth-child(3){animation-delay:.6s}
-.env-side.left .side-item:nth-child(5){animation-delay:.9s}
-.env-side.left .side-item:nth-child(7){animation-delay:1.2s}
-.env-side.left .side-item:nth-child(9){animation-delay:1.5s}
-.env-side.left .side-line:nth-child(2){animation-delay:.45s}
-.env-side.left .side-line:nth-child(4){animation-delay:.75s}
-.env-side.left .side-line:nth-child(6){animation-delay:1.05s}
-.env-side.left .side-line:nth-child(8){animation-delay:1.35s}
-.env-side.right .side-item:nth-child(1){animation-delay:.4s}
-.env-side.right .side-item:nth-child(3){animation-delay:.7s}
-.env-side.right .side-item:nth-child(5){animation-delay:1s}
-.env-side.right .side-item:nth-child(7){animation-delay:1.3s}
-.env-side.right .side-item:nth-child(9){animation-delay:1.6s}
-.env-side.right .side-line:nth-child(2){animation-delay:.55s}
-.env-side.right .side-line:nth-child(4){animation-delay:.85s}
-.env-side.right .side-line:nth-child(6){animation-delay:1.15s}
-.env-side.right .side-line:nth-child(8){animation-delay:1.45s}
-
-.env-center{display:flex;flex-direction:column;align-items:center;position:relative}
+.env-center{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;min-width:0}
 
 .env-top-deco{text-align:center;margin-bottom:12px}
 .env-top-deco .sparkle-row{display:flex;justify-content:center;gap:10px;margin-bottom:6px}
@@ -52,7 +31,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .env-title{font-size:22px;color:#880e4f;letter-spacing:6px;text-shadow:0 2px 8px rgba(136,14,79,.15);margin-bottom:2px}
 .env-subtitle{font-size:13px;color:#c2185b;opacity:.7;letter-spacing:4px}
 
-.envelope-wrap{position:relative;width:280px;height:200px;cursor:pointer;perspective:800px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.18));margin:16px 0}
+.envelope-wrap{position:relative;width:260px;height:185px;cursor:pointer;perspective:800px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.18));margin:16px 0}
 .envelope{width:100%;height:100%;position:relative}
 .envelope-body{width:100%;height:100%;background:linear-gradient(145deg,#fff8f8,#ffe4e1);border-radius:10px;border:2px solid #f8a4b8;position:relative;overflow:hidden}
 .envelope-body::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(244,143,177,.06) 8px,rgba(244,143,177,.06) 16px)}
@@ -97,18 +76,17 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .photo-stage-sub{font-size:13px;color:#ad1457;text-align:center;margin-bottom:20px;opacity:0;transform:translateY(20px);letter-spacing:2px}
 .photo-stage-sub.revealed{opacity:1;transform:translateY(0);transition:opacity .8s ease,transform .8s ease}
 
-.carousel-wrap{width:100%;max-width:400px;position:relative;overflow:hidden;border-radius:20px;margin-bottom:20px}
-.carousel-track{display:flex;transition:transform .6s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.carousel-wrap{width:100%;max-width:400px;position:relative;overflow:hidden;border-radius:20px;margin-bottom:16px}
+.carousel-track{display:flex;will-change:transform}
+.carousel-track.animate{transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
 .carousel-slide{min-width:100%;padding:0 12px;display:flex;justify-content:center}
 .carousel-slide img{width:100%;max-width:340px;height:220px;object-fit:cover;border-radius:16px;box-shadow:0 8px 30px rgba(233,30,99,.15);border:3px solid #fff}
 .slide-caption{text-align:center;margin-top:8px;font-size:13px;color:#880e4f;letter-spacing:1px;line-height:1.6}
 
-/* Carousel indicators */
 .carousel-dots{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
 .carousel-dots .dot{width:8px;height:8px;border-radius:50%;background:#f8bbd0;transition:all .3s}
 .carousel-dots .dot.active{background:#e91e63;width:22px;border-radius:4px}
 
-/* Carousel arrows */
 .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(255,255,255,.85);border:1.5px solid #f8bbd0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:16px;color:#e91e63;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .2s;backdrop-filter:blur(4px)}
 .carousel-arrow:active{transform:translateY(-50%) scale(.9)}
 .carousel-arrow.left{left:6px}
@@ -163,17 +141,9 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 <!-- ===== Envelope Stage ===== -->
 <div id="envelope-stage">
   <div class="env-container">
-    <!-- Left decorative column -->
-    <div class="env-side left">
-      <span class="side-item">🌹</span>
-      <span class="side-line"></span>
-      <span class="side-item">💝</span>
-      <span class="side-line"></span>
-      <span class="side-item">🌙</span>
-      <span class="side-line"></span>
-      <span class="side-item">💗</span>
-      <span class="side-line"></span>
-      <span class="side-item">✨</span>
+    <!-- Left particle heart -->
+    <div class="heart-canvas-wrap">
+      <canvas id="heartCanvasL"></canvas>
     </div>
 
     <!-- Center content -->
@@ -215,17 +185,9 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
       </div>
     </div>
 
-    <!-- Right decorative column -->
-    <div class="env-side right">
-      <span class="side-item">✨</span>
-      <span class="side-line"></span>
-      <span class="side-item">💗</span>
-      <span class="side-line"></span>
-      <span class="side-item">🌙</span>
-      <span class="side-line"></span>
-      <span class="side-item">💝</span>
-      <span class="side-line"></span>
-      <span class="side-item">🌹</span>
+    <!-- Right particle heart -->
+    <div class="heart-canvas-wrap">
+      <canvas id="heartCanvasR"></canvas>
     </div>
   </div>
 </div>
@@ -310,7 +272,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 <div id="music-btn" class="hidden" onclick="toggleMusic()">🎵</div>
 
 <script>
-// ========== Particle System (Petals + Stars) ==========
+// ========== Background Particle System (Petals + Stars) ==========
 const pCanvas = document.getElementById('particles');
 const pCtx = pCanvas.getContext('2d');
 let pW, pH;
@@ -386,6 +348,159 @@ function animateParticles() {
 }
 animateParticles();
 
+// ========== Heart Particle System (Left & Right) ==========
+function getHeartPoints(cx, cy, size, count) {
+  const pts = [];
+  for (let i = 0; i < count; i++) {
+    const t = (i / count) * Math.PI * 2;
+    const x = 16 * Math.pow(Math.sin(t), 3);
+    const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+    pts.push({ x: cx + x * size, y: cy + y * size });
+  }
+  return pts;
+}
+
+class HeartParticleSystem {
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId);
+    this.ctx = this.canvas.getContext('2d');
+    this.particles = [];
+    this.sparks = [];
+    this.time = 0;
+    this.resize();
+    this.initParticles();
+    this.animate();
+  }
+
+  resize() {
+    const wrap = this.canvas.parentElement;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.w = wrap.clientWidth;
+    this.h = wrap.clientHeight;
+    this.canvas.width = this.w * dpr;
+    this.canvas.height = this.h * dpr;
+    this.canvas.style.width = this.w + 'px';
+    this.canvas.style.height = this.h + 'px';
+    this.ctx.scale(dpr, dpr);
+  }
+
+  initParticles() {
+    const cx = this.w / 2;
+    const cy = this.h / 2 + 5;
+    const size = Math.min(this.w, this.h) / 42;
+    const heartPts = getHeartPoints(cx, cy, size, 60);
+
+    this.particles = heartPts.map((pt, i) => ({
+      baseX: pt.x,
+      baseY: pt.y,
+      x: pt.x,
+      y: pt.y,
+      size: Math.random() * 2.5 + 1.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.015 + 0.008,
+      opacity: Math.random() * 0.5 + 0.5,
+      hue: 340 + Math.random() * 25,
+      drift: (Math.random() - 0.5) * 0.6
+    }));
+  }
+
+  spawnSpark() {
+    const cx = this.w / 2;
+    const cy = this.h / 2;
+    const angle = Math.random() * Math.PI * 2;
+    const dist = Math.random() * 25 + 15;
+    this.sparks.push({
+      x: cx + Math.cos(angle) * dist,
+      y: cy + Math.sin(angle) * dist,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: -Math.random() * 1.2 - 0.3,
+      life: 1,
+      decay: Math.random() * 0.02 + 0.01,
+      size: Math.random() * 2 + 0.8,
+      hue: Math.random() > 0.5 ? 340 + Math.random() * 20 : 40 + Math.random() * 20
+    });
+  }
+
+  animate() {
+    this.time++;
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+
+    // Glow behind heart
+    const grd = ctx.createRadialGradient(this.w/2, this.h/2, 0, this.w/2, this.h/2, this.w/2);
+    grd.addColorStop(0, 'rgba(233,30,99,0.06)');
+    grd.addColorStop(1, 'rgba(233,30,99,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, this.w, this.h);
+
+    // Draw heart particles
+    this.particles.forEach(p => {
+      const breathe = Math.sin(this.time * p.speed + p.phase) * 1.5;
+      p.x = p.baseX + breathe + Math.sin(this.time * 0.01 + p.phase) * p.drift;
+      p.y = p.baseY + Math.cos(this.time * p.speed * 0.7 + p.phase) * 1.2;
+      const alpha = p.opacity * (0.6 + 0.4 * Math.sin(this.time * 0.03 + p.phase));
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = `hsla(${p.hue}, 85%, 65%, 1)`;
+      ctx.shadowColor = `hsla(${p.hue}, 90%, 60%, 0.6)`;
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // Draw connecting lines between nearby particles
+    ctx.save();
+    ctx.globalAlpha = 0.08;
+    ctx.strokeStyle = '#e91e63';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < this.particles.length; i++) {
+      for (let j = i + 1; j < this.particles.length; j++) {
+        const a = this.particles[i], b = this.particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 12) {
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+
+    // Spawn and draw sparkles
+    if (this.time % 8 === 0) this.spawnSpark();
+    for (let i = this.sparks.length - 1; i >= 0; i--) {
+      const s = this.sparks[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.life -= s.decay;
+      if (s.life <= 0) { this.sparks.splice(i, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = s.life;
+      ctx.fillStyle = `hsla(${s.hue}, 100%, 75%, 1)`;
+      ctx.shadowColor = `hsla(${s.hue}, 100%, 70%, 0.8)`;
+      ctx.shadowBlur = 4;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+let heartL, heartR;
+function initHearts() {
+  heartL = new HeartParticleSystem('heartCanvasL');
+  heartR = new HeartParticleSystem('heartCanvasR');
+}
+initHearts();
+
 // ========== Envelope Logic ==========
 let opened = false;
 function openEnvelope() {
@@ -411,30 +526,66 @@ let currentSlide = 0;
 const totalSlides = 4;
 let autoPlayTimer = null;
 
-function updateCarousel() {
+function updateCarousel(instant) {
   const track = document.getElementById('carouselTrack');
+  if (!instant) track.classList.add('animate');
+  else track.classList.remove('animate');
   track.style.transform = `translateX(-${currentSlide * 100}%)`;
   const dots = document.querySelectorAll('#carouselDots .dot');
   dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  if (instant) {
+    // Force reflow then re-enable animation
+    track.offsetHeight;
+    track.classList.add('animate');
+  }
 }
 
 function carouselNext() {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  updateCarousel();
+  currentSlide++;
+  if (currentSlide >= totalSlides) {
+    // Seamless loop: jump to clone, then reset
+    currentSlide = totalSlides;
+    updateCarousel(false);
+    setTimeout(() => {
+      currentSlide = 0;
+      updateCarousel(true);
+    }, 650);
+  } else {
+    updateCarousel(false);
+  }
   resetAutoPlay();
 }
 
 function carouselPrev() {
-  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-  updateCarousel();
+  if (currentSlide === 0) {
+    // Seamless reverse: jump to clone, then reset
+    currentSlide = -1;
+    updateCarousel(false);
+    setTimeout(() => {
+      currentSlide = totalSlides - 1;
+      updateCarousel(true);
+    }, 650);
+  } else {
+    currentSlide--;
+    updateCarousel(false);
+  }
   resetAutoPlay();
 }
 
 function startAutoPlay() {
   autoPlayTimer = setInterval(() => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateCarousel();
-  }, 2800);
+    currentSlide++;
+    if (currentSlide >= totalSlides) {
+      currentSlide = totalSlides;
+      updateCarousel(false);
+      setTimeout(() => {
+        currentSlide = 0;
+        updateCarousel(true);
+      }, 650);
+    } else {
+      updateCarousel(false);
+    }
+  }, 3000);
 }
 
 function resetAutoPlay() {
@@ -442,17 +593,13 @@ function resetAutoPlay() {
   startAutoPlay();
 }
 
-// Touch swipe support
+// Touch swipe
 let touchStartX = 0;
-let touchEndX = 0;
 const carouselWrap = document.getElementById('carouselWrap');
 carouselWrap.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
 carouselWrap.addEventListener('touchend', e => {
-  touchEndX = e.changedTouches[0].screenX;
-  const diff = touchStartX - touchEndX;
-  if (Math.abs(diff) > 40) {
-    diff > 0 ? carouselNext() : carouselPrev();
-  }
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 40) diff > 0 ? carouselNext() : carouselPrev();
 }, { passive: true });
 
 // ========== Photo Stage Logic ==========
@@ -464,13 +611,7 @@ function showPhotoStage() {
 
   setTimeout(() => document.getElementById('photoTitle').classList.add('revealed'), 200);
   setTimeout(() => document.getElementById('photoSub').classList.add('revealed'), 500);
-
-  // Reveal button after carousel plays through once
-  setTimeout(() => {
-    document.getElementById('enter-card-btn').classList.add('revealed');
-  }, 3000);
-
-  // Start auto carousel
+  setTimeout(() => document.getElementById('enter-card-btn').classList.add('revealed'), 3000);
   setTimeout(() => startAutoPlay(), 800);
 }
 
@@ -497,7 +638,7 @@ function enterCard() {
   }, 600);
 }
 
-// ========== Fireworks / Heart Particles ==========
+// ========== Fireworks ==========
 const fwCanvas = document.getElementById('fireworks-canvas');
 const fwCtx = fwCanvas.getContext('2d');
 let fwW, fwH;
@@ -513,9 +654,7 @@ window.addEventListener('resize', resizeFW);
 
 class FWParticle {
   constructor(x, y, color, isHeart) {
-    this.x = x; this.y = y;
-    this.color = color;
-    this.isHeart = isHeart;
+    this.x = x; this.y = y; this.color = color; this.isHeart = isHeart;
     const angle = Math.random() * Math.PI * 2;
     const speed = Math.random() * 5 + 2;
     this.vx = Math.cos(angle) * speed;
@@ -528,32 +667,20 @@ class FWParticle {
     this.rotSpeed = (Math.random() - 0.5) * 0.1;
   }
   update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.vy += this.gravity;
-    this.vx *= 0.99;
-    this.life -= this.decay;
-    this.rotation += this.rotSpeed;
+    this.x += this.vx; this.y += this.vy; this.vy += this.gravity;
+    this.vx *= 0.99; this.life -= this.decay; this.rotation += this.rotSpeed;
   }
   draw(ctx) {
     if (this.life <= 0) return;
-    ctx.save();
-    ctx.globalAlpha = this.life;
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.rotation);
+    ctx.save(); ctx.globalAlpha = this.life;
+    ctx.translate(this.x, this.y); ctx.rotate(this.rotation);
     ctx.fillStyle = this.color;
-    if (this.isHeart) {
-      this.drawHeart(ctx, this.size);
-    } else {
-      ctx.beginPath();
-      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    if (this.isHeart) this.drawHeart(ctx, this.size);
+    else { ctx.beginPath(); ctx.arc(0, 0, this.size, 0, Math.PI * 2); ctx.fill(); }
     ctx.restore();
   }
   drawHeart(ctx, s) {
-    ctx.beginPath();
-    const d = s / 2;
+    ctx.beginPath(); const d = s / 2;
     ctx.moveTo(0, d * 0.4);
     ctx.bezierCurveTo(-d, -d * 0.6, -d * 1.8, d * 0.4, 0, d * 1.6);
     ctx.bezierCurveTo(d * 1.8, d * 0.4, d, -d * 0.6, 0, d * 0.4);
@@ -573,16 +700,11 @@ function spawnFireworks(cx, cy) {
 function animateFireworks() {
   fwCtx.clearRect(0, 0, fwW, fwH);
   for (let i = fwParticles.length - 1; i >= 0; i--) {
-    fwParticles[i].update();
-    fwParticles[i].draw(fwCtx);
+    fwParticles[i].update(); fwParticles[i].draw(fwCtx);
     if (fwParticles[i].life <= 0) fwParticles.splice(i, 1);
   }
-  if (fwParticles.length > 0) {
-    requestAnimationFrame(animateFireworks);
-  } else {
-    fwAnimating = false;
-    fwCtx.clearRect(0, 0, fwW, fwH);
-  }
+  if (fwParticles.length > 0) requestAnimationFrame(animateFireworks);
+  else { fwAnimating = false; fwCtx.clearRect(0, 0, fwW, fwH); }
 }
 
 // ========== Love Button ==========
@@ -593,8 +715,7 @@ function showLove(btn) {
   const rect = btn.getBoundingClientRect();
   const sz = Math.max(rect.width, rect.height);
   ripple.style.width = ripple.style.height = sz + 'px';
-  ripple.style.left = '50%';
-  ripple.style.top = '50%';
+  ripple.style.left = '50%'; ripple.style.top = '50%';
   ripple.style.marginLeft = -sz / 2 + 'px';
   ripple.style.marginTop = -sz / 2 + 'px';
   btn.appendChild(ripple);
@@ -619,10 +740,10 @@ let musicInterval = null;
 function createMusic() {
   if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const notes = [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33,
-                 523.25, 392, 440, 523.25, 587.33, 523.25, 440, 392,
-                 523.25, 659.25, 783.99, 880, 783.99, 659.25, 523.25, 440,
-                 392, 440, 523.25, 587.33, 523.25, 440, 392, 349.23];
+  const notes = [523.25,587.33,659.25,783.99,880,783.99,659.25,587.33,
+                 523.25,392,440,523.25,587.33,523.25,440,392,
+                 523.25,659.25,783.99,880,783.99,659.25,523.25,440,
+                 392,440,523.25,587.33,523.25,440,392,349.23];
   let idx = 0;
   function playNote() {
     if (!musicPlaying || !audioCtx) return;
@@ -633,10 +754,8 @@ function createMusic() {
     gain.gain.setValueAtTime(0, audioCtx.currentTime);
     gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start(audioCtx.currentTime);
-    osc.stop(audioCtx.currentTime + 0.85);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime); osc.stop(audioCtx.currentTime + 0.85);
     idx++;
   }
   playNote();
@@ -646,34 +765,23 @@ function createMusic() {
 function toggleMusic() {
   const btn = document.getElementById('music-btn');
   if (musicPlaying) {
-    musicPlaying = false;
-    clearInterval(musicInterval);
-    musicInterval = null;
-    btn.classList.remove('playing');
-    btn.textContent = '🎵';
+    musicPlaying = false; clearInterval(musicInterval); musicInterval = null;
+    btn.classList.remove('playing'); btn.textContent = '🎵';
   } else {
-    musicPlaying = true;
-    createMusic();
-    btn.classList.add('playing');
-    btn.textContent = '🎶';
+    musicPlaying = true; createMusic();
+    btn.classList.add('playing'); btn.textContent = '🎶';
   }
 }
 
-function showMusicBtn() {
-  document.getElementById('music-btn').classList.remove('hidden');
-}
+function showMusicBtn() { document.getElementById('music-btn').classList.remove('hidden'); }
 
 function tryAutoPlayMusic() {
-  musicPlaying = true;
-  createMusic();
+  musicPlaying = true; createMusic();
   const btn = document.getElementById('music-btn');
-  btn.classList.add('playing');
-  btn.textContent = '🎶';
+  btn.classList.add('playing'); btn.textContent = '🎶';
   if (audioCtx && audioCtx.state === 'suspended') {
-    musicPlaying = false;
-    clearInterval(musicInterval);
-    btn.classList.remove('playing');
-    btn.textContent = '🎵';
+    musicPlaying = false; clearInterval(musicInterval);
+    btn.classList.remove('playing'); btn.textContent = '🎵';
   }
 }
 </script>
