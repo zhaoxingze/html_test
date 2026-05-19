@@ -87,10 +87,6 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .carousel-dots .dot{width:8px;height:8px;border-radius:50%;background:#f8bbd0;transition:all .3s}
 .carousel-dots .dot.active{background:#e91e63;width:22px;border-radius:4px}
 
-.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(255,255,255,.85);border:1.5px solid #f8bbd0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:16px;color:#e91e63;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .2s;backdrop-filter:blur(4px)}
-.carousel-arrow:active{transform:translateY(-50%) scale(.9)}
-.carousel-arrow.left{left:6px}
-.carousel-arrow.right{right:6px}
 
 #enter-card-btn{margin-top:6px;padding:14px 40px;background:linear-gradient(135deg,#e91e63,#f06292);color:#fff;border:none;border-radius:50px;font-size:16px;cursor:pointer;letter-spacing:3px;box-shadow:0 4px 20px rgba(233,30,99,.35);font-family:inherit;opacity:0;transform:translateY(20px);transition:all .3s}
 #enter-card-btn.revealed{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease}
@@ -199,7 +195,6 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
     <div class="photo-stage-sub" id="photoSub">每一张 都是甜蜜的记忆 💫</div>
 
     <div class="carousel-wrap" id="carouselWrap">
-      <div class="carousel-arrow left" onclick="carouselPrev()">‹</div>
       <div class="carousel-track" id="carouselTrack">
         <div class="carousel-slide">
           <div>
@@ -225,8 +220,14 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
             <div class="slide-caption">往后余生 🌹 风雪是你 平淡也是你</div>
           </div>
         </div>
+        <!-- Clone of first slide for seamless loop -->
+        <div class="carousel-slide">
+          <div>
+            <img src="photos/3dd22b1c36efd67a1e90898531e62d76.jpg" alt="photo1-clone">
+            <div class="slide-caption">时光温柔 🌸 因为有你</div>
+          </div>
+        </div>
       </div>
-      <div class="carousel-arrow right" onclick="carouselNext()">›</div>
     </div>
 
     <div class="carousel-dots" id="carouselDots">
@@ -521,85 +522,57 @@ function openEnvelope() {
   }, 1300);
 }
 
-// ========== Carousel Logic ==========
+// ========== Carousel Logic (Seamless Infinite Loop) ==========
+const REAL_SLIDES = 4;
 let currentSlide = 0;
-const totalSlides = 4;
 let autoPlayTimer = null;
+let isTransitioning = false;
 
-function updateCarousel(instant) {
-  const track = document.getElementById('carouselTrack');
-  if (!instant) track.classList.add('animate');
-  else track.classList.remove('animate');
-  track.style.transform = `translateX(-${currentSlide * 100}%)`;
-  const dots = document.querySelectorAll('#carouselDots .dot');
-  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-  if (instant) {
-    // Force reflow then re-enable animation
-    track.offsetHeight;
-    track.classList.add('animate');
-  }
+function updateDots(idx) {
+  const real = idx % REAL_SLIDES;
+  document.querySelectorAll('#carouselDots .dot').forEach((d, i) => d.classList.toggle('active', i === real));
 }
 
-function carouselNext() {
+function goToSlide(idx, animate) {
+  const track = document.getElementById('carouselTrack');
+  if (animate) {
+    track.classList.add('animate');
+  } else {
+    track.classList.remove('animate');
+  }
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  updateDots(idx);
+}
+
+function nextSlide() {
+  if (isTransitioning) return;
   currentSlide++;
-  if (currentSlide >= totalSlides) {
-    // Seamless loop: jump to clone, then reset
-    currentSlide = totalSlides;
-    updateCarousel(false);
+  isTransitioning = true;
+  goToSlide(currentSlide, true);
+
+  // When reaching the clone (index 4), snap back to 0 after transition
+  if (currentSlide >= REAL_SLIDES) {
     setTimeout(() => {
       currentSlide = 0;
-      updateCarousel(true);
+      goToSlide(currentSlide, false);
+      isTransitioning = false;
     }, 650);
   } else {
-    updateCarousel(false);
+    setTimeout(() => { isTransitioning = false; }, 650);
   }
-  resetAutoPlay();
-}
-
-function carouselPrev() {
-  if (currentSlide === 0) {
-    // Seamless reverse: jump to clone, then reset
-    currentSlide = -1;
-    updateCarousel(false);
-    setTimeout(() => {
-      currentSlide = totalSlides - 1;
-      updateCarousel(true);
-    }, 650);
-  } else {
-    currentSlide--;
-    updateCarousel(false);
-  }
-  resetAutoPlay();
 }
 
 function startAutoPlay() {
-  autoPlayTimer = setInterval(() => {
-    currentSlide++;
-    if (currentSlide >= totalSlides) {
-      currentSlide = totalSlides;
-      updateCarousel(false);
-      setTimeout(() => {
-        currentSlide = 0;
-        updateCarousel(true);
-      }, 650);
-    } else {
-      updateCarousel(false);
-    }
-  }, 3000);
+  autoPlayTimer = setInterval(nextSlide, 3000);
 }
 
-function resetAutoPlay() {
-  clearInterval(autoPlayTimer);
-  startAutoPlay();
-}
-
-// Touch swipe
+// Touch swipe (any direction advances the loop)
 let touchStartX = 0;
 const carouselWrap = document.getElementById('carouselWrap');
 carouselWrap.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
 carouselWrap.addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].screenX;
-  if (Math.abs(diff) > 40) diff > 0 ? carouselNext() : carouselPrev();
+  if (Math.abs(diff) > 40) nextSlide();
 }, { passive: true });
 
 // ========== Photo Stage Logic ==========
